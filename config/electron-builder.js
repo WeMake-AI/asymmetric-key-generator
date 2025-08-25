@@ -21,8 +21,8 @@ const config = {
   publish: [
     {
       provider: 'generic',
-      url: '',
-    },
+      url: ''
+    }
   ],
   afterSign: async (context) => {
     const { electronPlatformName, appOutDir } = context
@@ -36,23 +36,29 @@ const config = {
       !process.env.APP_STORE_CONNECT_API_KEY_CONTENT
     ) {
       console.log(
-        'Skipping notarization because APP_STORE_CONNECT_API_KEY_ID, APP_STORE_CONNECT_API_ISSUER_ID or APP_STORE_CONNECT_API_KEY_CONTENT env variables are not set',
+        'Skipping notarization because APP_STORE_CONNECT_API_KEY_ID, APP_STORE_CONNECT_API_ISSUER_ID or APP_STORE_CONNECT_API_KEY_CONTENT env variables are not set'
       )
       return
     }
 
     const appName = context.packager.appInfo.productFilename
-    
-    const dirname = __dirname;
-    const tempFile = path.join(dirname, 'app-store-connect-api-key')
-    fs.writeFileSync(tempFile, process.env.APP_STORE_CONNECT_API_KEY_CONTENT)
 
-    return await notarize({
-      appPath: `${appOutDir}/${appName}.app`,
-      appleApiKeyId: process.env.APP_STORE_CONNECT_API_KEY_ID,
-      appleApiKey: tempFile,
-      appleApiIssuer: process.env.APP_STORE_CONNECT_API_ISSUER_ID,
-    })
+    const dirname = __dirname
+    const tempFile = path.join(dirname, 'app-store-connect-api-key')
+    // Write with restrictive permissions
+    fs.writeFileSync(tempFile, process.env.APP_STORE_CONNECT_API_KEY_CONTENT, { mode: 0o600 })
+    try {
+      return await notarize({
+        appPath: `${appOutDir}/${appName}.app`,
+        appleApiKeyId: process.env.APP_STORE_CONNECT_API_KEY_ID,
+        appleApiKey: tempFile,
+        appleApiIssuer: process.env.APP_STORE_CONNECT_API_ISSUER_ID
+      })
+    } finally {
+      try {
+        fs.unlinkSync(tempFile)
+      } catch {}
+    }
   }
 }
 

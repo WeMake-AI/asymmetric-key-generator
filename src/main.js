@@ -1,10 +1,7 @@
 const { app, BrowserWindow, ipcMain, clipboard, dialog, nativeImage } = require('electron')
 const { is } = require('electron-util')
-const fs = require('fs');
-const fsp = require('fs').promises;
-const os = require('os');
-const path = require('path');
-const tar = require('tar');
+const fs = require('fs')
+const path = require('path')
 const {
   CHANNEL_GENERATE_KEYS,
   CHANNEL_GENERATE_PUBLIC_KEYS,
@@ -15,7 +12,7 @@ const {
 } = require('./shared')
 const { generateKeys, generatePublicKey, saveKeys } = require('./generate')
 
-function createWindow () {
+function createWindow() {
   let options = {
     width: 960,
     height: 600,
@@ -25,7 +22,12 @@ function createWindow () {
   }
 
   if (is.linux) {
-    options = { ...options, ...{ icon: nativeImage.createFromPath(path.join(__dirname, '../build/icons/256x256.png')) } }
+    options = {
+      ...options,
+      ...{
+        icon: nativeImage.createFromPath(path.join(__dirname, '../build/icons/256x256.png'))
+      }
+    }
   }
 
   const mainWindow = new BrowserWindow(options)
@@ -71,14 +73,14 @@ app.whenReady().then(() => {
 
 app.on('window-all-closed', function () {
   if (!is.macos) app.quit()
-  GET_ALL_CHANNELS.map(channel => ipcMain.removeHandler(channel))
+  GET_ALL_CHANNELS.map((channel) => ipcMain.removeHandler(channel))
 })
 
-async function copyKey (data) {
+async function copyKey(data) {
   clipboard.writeText(data)
 }
 
-async function promptSaveKey (keyType, key) {
+async function promptSaveKey(keyType, key) {
   const options = {
     title: `Save ${keyType}`,
     defaultPath: keyType,
@@ -105,45 +107,39 @@ async function promptSaveKey (keyType, key) {
   return result
 }
 
-async function promptSaveKeyPairs(
-  keys = [],
-  keyType,
-  { count, passphrase } = {}
-) {
+async function promptSaveKeyPairs(keys = [], keyType, { count, passphrase } = {}) {
   const options = {
-    title: `Save key pairs`,
+    title: 'Save key pairs',
     defaultPath: `id_${keyType}.tar.gz`,
-    buttonLabel: "Save",
+    buttonLabel: 'Save',
     filters: [
-      { name: "tar.gz", extensions: ["tar.gz"] },
-      { name: "All Files", extensions: ["*"] },
-    ],
-  };
+      { name: 'tar.gz', extensions: ['tar.gz'] },
+      { name: 'All Files', extensions: ['*'] }
+    ]
+  }
 
-  count = count || 1;
+  count = count || 1
 
-  let remaining = count - keys.length;
+  const remaining = count - keys.length
   if (remaining > 0) {
     for (let i = 0; i < remaining; i++) {
-      keys.push(await generateKeys(keyType, passphrase));
+      keys.push(await generateKeys(keyType, passphrase))
     }
   }
 
-  const result = await dialog
-    .showSaveDialog(null, options)
-    .then(async ({ canceled, filePath }) => {
-      if (!canceled) {
-        try {
-          await saveKeys(keys, filePath);
-          return "Key pairs saved";
-        } catch (err) {
-          console.log(err);
-          return `Error. Can not save file ${filePath}`;
-        }
-      } else {
-        console.warn("Save key dialog cancelled");
+  const result = await dialog.showSaveDialog(null, options).then(async ({ canceled, filePath }) => {
+    if (!canceled) {
+      try {
+        await saveKeys(keys, filePath)
+        return 'Key pairs saved'
+      } catch (err) {
+        console.log(err)
+        return `Error. Can not save file ${filePath}`
       }
-    });
+    } else {
+      console.warn('Save key dialog cancelled')
+    }
+  })
 
-  return result;
+  return result
 }
