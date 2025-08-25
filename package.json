@@ -12,7 +12,7 @@
     "lint:fix": "eslint ./src --ext .js --fix",
     "postinstall": "electron-builder install-app-deps"
   },
-  "repository": "https://github.com/binance/asymmetric-key-generator",
+  "repository": "https://github.com/WeMake-AI/asymmetric-key-generator",
   "author": {
     "name": "Binance",
     "email": "contact@binance.com",

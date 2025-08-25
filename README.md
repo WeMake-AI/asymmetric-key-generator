@@ -6,7 +6,7 @@ There's two methods to run the tool, you can either download or build from sourc
 
 ## Download
 
-Prebuild apps can be found in [Releases](https://github.com/binance/asymmetric-key-generator/releases).
+Prebuild apps can be found in [Releases](https://github.com/WeMake-AI/asymmetric-key-generator/releases).
 
 To verify the package's integrity, download both the app and the checksum file to the same directory:
 
