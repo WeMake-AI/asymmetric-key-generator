@@ -1,8 +1,18 @@
 {
   "name": "asymmetric-key-generator",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Asymmetric Key Generator",
   "main": "src/main.js",
+  "homepage": "https://github.com/WeMake-AI/asymmetric-key-generator",
+  "author": {
+    "name": "💙 WeMake",
+    "email": "hey@wemake.cx",
+    "url": "https://wemake.cx"
+  },
+  "engines": {
+    "bun": ">=1.2.0"
+  },
+  "packageManager": "bun@1.2.0",
   "scripts": {
     "start": "electron .",
     "generate": "node src/cli.js",
@@ -10,24 +20,24 @@
     "dist": "electron-builder -mwl --config config/electron-builder.js",
     "lint": "eslint ./src --ext .js",
     "lint:fix": "eslint ./src --ext .js --fix",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "electron-builder install-app-deps",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
   },
   "repository": "https://github.com/WeMake-AI/asymmetric-key-generator",
-  "author": {
-    "name": "Binance",
-    "email": "contact@binance.com",
-    "url": "https://www.binance.com"
-  },
   "license": "MIT",
   "devDependencies": {
     "@electron/notarize": "^2.5.0",
-    "electron": "^26.3.0",
-    "electron-builder": "^24.6.4",
-    "eslint": "^8.50.0",
+    "electron": ">=28.3.2",
+    "electron-builder": "^24.13.3",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-import": "^2.28.0",
-    "eslint-plugin-n": "^16.1.0",
-    "eslint-plugin-promise": "^6.1.1"
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-promise": "^6.6.0",
+    "prettier": "^3.6.2"
   },
   "dependencies": {
     "electron-util": "^0.17.2",
@@ -38,5 +48,34 @@
       "@electron/get": "^2.0.2"
     },
     "minimatch@<3.0.5": ">=3.0.5"
+  },
+  "prettier": {
+    "trailingComma": "none",
+    "printWidth": 120,
+    "endOfLine": "lf",
+    "useTabs": false,
+    "tabWidth": 2,
+    "singleQuote": true,
+    "semi": false,
+    "bracketSameLine": true,
+    "proseWrap": "never",
+    "overrides": [
+      {
+        "files": [
+          ".github/workflows/*.yml"
+        ],
+        "options": {
+          "objectWrap": "collapse"
+        }
+      },
+      {
+        "files": [
+          "*.html"
+        ],
+        "options": {
+          "parser": "html"
+        }
+      }
+    ]
   }
 }
