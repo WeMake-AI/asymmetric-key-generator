@@ -1,108 +1,141 @@
-<!DOCTYPE html>
+<!doctype html>
 <html data-theme="light">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
-  <link href="../css/daisyui.css" rel="stylesheet" type="text/css" />
-  <script src="../js/tailwind.js"></script>
-  <link href="../css/styles.css" rel="stylesheet">
-  <title>Key Pair Generator</title>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'" />
+    <link href="../css/daisyui.css" rel="stylesheet" type="text/css" />
+    <script src="../js/tailwind.js"></script>
+    <link href="../css/styles.css" rel="stylesheet" />
+    <title>Key Pair Generator</title>
+  </head>
 
-<body>
-  <main class="min-h-screen flex flex-col items-center flex-grow bg-white">
-    <div class="grid grid-cols-1 w-3/4">
-      <div>
-        <div class="mx-auto pt-12">
-          <h1 class="text-3xl font-bold">Generate</h1>
-        </div>
+  <body>
+    <main class="min-h-screen flex flex-col items-center flex-grow bg-white">
+      <div class="grid grid-cols-1 w-3/4">
+        <div>
+          <div class="mx-auto pt-12">
+            <h1 class="text-3xl font-bold">Generate</h1>
+          </div>
 
-        <div class="overflow-x-auto py-2">
-          <p id="info">You can generate private keys with the help of this tool. In addition, it will
-            display the
-            public key of the generated or pasted private key. The available format is PKCS#8.</p>
-        </div>
-        <div class="grid grid-cols-12 gap-x-4 w-full py-2 items-center">
-          <div class="col-span-3">
-            <select id="select-keyType" class="select select-bordered w-full">
-              <option value="ed25519">Ed25519</option>
-              <option value="rsa-2048">RSA (2048 bits)</option>
-              <option value="rsa-4096">RSA (4096 bits)</option>
-            </select>
+          <div class="overflow-x-auto py-2">
+            <p id="info">
+              You can generate private keys with the help of this tool. In addition, it will display the public key of
+              the generated or pasted private key. The available format is PKCS#8.
+            </p>
           </div>
-          <div class="col-span-4 relative">
-            <input id="passphrase-input" type="password" placeholder="Passphrase (optional)" 
-                   class="input input-bordered w-full pr-12">
-            <button type="button" id="toggle-password" class="absolute inset-y-0 right-0 pr-3 flex items-center">
-              <svg id="eye-open" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/>
-                <circle cx="12" cy="12" r="3"/>
-              </svg>
-              <svg id="eye-closed" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/>
-                <circle cx="12" cy="12" r="3"/>
-                <path d="M3 3l18 18"/>
-              </svg>
-            </button>
-          </div>
-          <div class="col-span-2">
-            <input id="key-count" type="number" min="1" placeholder="Enter passphrase (optional)" value="1" 
-                   class="input input-bordered w-full pr-12">
-            </button>
-          </div>
-          <div class="col-span-3">
-            <button id="generate-keys-button" class="btn bg-blue-500 text-white normal-case border-inherit w-full">
-              Generate 1 Key Pair
-            </button>
+          <div class="grid grid-cols-12 gap-x-4 w-full py-2 items-center">
+            <div class="col-span-3">
+              <select id="select-keyType" class="select select-bordered w-full">
+                <option value="ed25519">Ed25519</option>
+                <option value="rsa-2048">RSA (2048 bits)</option>
+                <option value="rsa-4096">RSA (4096 bits)</option>
+              </select>
+            </div>
+            <div class="col-span-4 relative">
+              <input
+                id="passphrase-input"
+                type="password"
+                placeholder="Passphrase (optional)"
+                class="input input-bordered w-full pr-12" />
+              <button type="button" id="toggle-password" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                <svg
+                  id="eye-open"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 text-gray-500 hidden"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+                <svg
+                  id="eye-closed"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 text-gray-500"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z" />
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M3 3l18 18" />
+                </svg>
+              </button>
+            </div>
+            <div class="col-span-2">
+              <input
+                id="key-count"
+                type="number"
+                min="1"
+                placeholder="Enter passphrase (optional)"
+                value="1"
+                class="input input-bordered w-full pr-12" />
+            </div>
+            <div class="col-span-3">
+              <button id="generate-keys-button" class="btn bg-blue-500 text-white normal-case border-inherit w-full">
+                Generate 1 Key Pair
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="grid grid-cols-2 w-3/4 gap-x-4 py-4">
-      <div class="flex flex-col gap-y-2">
-        <div>
-          <h2 class="text-2xl font-bold">Private Key</h2>
+      <div class="grid grid-cols-2 w-3/4 gap-x-4 py-4">
+        <div class="flex flex-col gap-y-2">
+          <div>
+            <h2 class="text-2xl font-bold">Private Key</h2>
+          </div>
+          <div class="grow">
+            <textarea
+              id="private-key-text-area"
+              class="textarea textarea-bordered w-full h-full"
+              placeholder="Paste private key here or click 'Generate Key Pair'"></textarea>
+          </div>
+          <div class="grid grid-cols-3 gap-x-2">
+            <button id="private-key-copy-button" class="btn btn-sm bg-blue-500 border-inherit text-xs" disabled>
+              COPY
+            </button>
+            <button id="private-key-save-button" class="btn btn-sm bg-blue-500 border-inherit text-xs" disabled>
+              SAVE
+            </button>
+          </div>
+          <div>
+            <p id="private-key-text-area-tooltip">ㅤ</p>
+          </div>
         </div>
-        <div class="grow">
-          <textarea id="private-key-text-area" class="textarea textarea-bordered w-full h-full"
-            placeholder="Paste private key here or click 'Generate Key Pair'"></textarea>
-        </div>
-        <div class="grid grid-cols-3 gap-x-2">
-          <button id="private-key-copy-button" class="btn btn-sm bg-blue-500 border-inherit text-xs"
-            disabled>COPY</button>
-          <button id="private-key-save-button" class="btn btn-sm bg-blue-500 border-inherit text-xs"
-            disabled>SAVE</button>
-        </div>
-        <div>
-          <p id="private-key-text-area-tooltip">ㅤ</p>
+        <div class="h-80 flex flex-col flex-grow gap-y-2">
+          <div>
+            <h2 class="text-2xl font-bold">Public Key</h2>
+          </div>
+          <div class="grow">
+            <textarea id="public-key-text-area" class="textarea textarea-bordered w-full h-full" disabled></textarea>
+          </div>
+          <div class="grid grid-cols-3 gap-x-2">
+            <button id="public-key-copy-button" class="btn btn-sm bg-blue-500 border-inherit text-xs" disabled>
+              COPY
+            </button>
+            <button id="public-key-save-button" class="btn btn-sm bg-blue-500 border-inherit text-xs" disabled>
+              SAVE
+            </button>
+            <button id="save-pair-button" class="btn btn-sm bg-blue-500 border-inherit text-xs" disabled>
+              SAVE PAIR
+            </button>
+          </div>
+          <div>
+            <p id="public-key-text-area-tooltip">ㅤ</p>
+          </div>
         </div>
       </div>
-      <div class="h-80 flex flex-col flex-grow gap-y-2">
-        <div>
-          <h2 class="text-2xl font-bold">Public Key</h2>
-        </div>
-        <div class="grow">
-          <textarea id="public-key-text-area" class="textarea textarea-bordered w-full h-full" disabled></textarea>
-        </div>
-        <div class="grid grid-cols-3 gap-x-2">
-          <button id="public-key-copy-button" class="btn btn-sm bg-blue-500 border-inherit text-xs"
-            disabled>COPY</button>
-          <button id="public-key-save-button" class="btn btn-sm bg-blue-500 border-inherit text-xs"
-            disabled>SAVE</button>
-            <button id="save-pair-button" class="btn btn-sm bg-blue-500 border-inherit text-xs"
-            disabled>SAVE PAIR</button>
-        </div>
-        <div>
-          <p id="public-key-text-area-tooltip">ㅤ</p>
-        </div>
-      </div>
-    </div>
-  </main>
-  <!-- You can also require other files to run in this process -->
-  <script src="../js/renderer.js"></script>
-</body>
-
+    </main>
+    <!-- You can also require other files to run in this process -->
+    <script src="../js/renderer.js"></script>
+  </body>
 </html>
