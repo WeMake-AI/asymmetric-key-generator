@@ -58,24 +58,6 @@
     "singleQuote": true,
     "semi": false,
     "bracketSameLine": true,
-    "proseWrap": "never",
-    "overrides": [
-      {
-        "files": [
-          ".github/workflows/*.yml"
-        ],
-        "options": {
-          "objectWrap": "collapse"
-        }
-      },
-      {
-        "files": [
-          "*.html"
-        ],
-        "options": {
-          "parser": "html"
-        }
-      }
-    ]
+    "proseWrap": "never"
   }
 }

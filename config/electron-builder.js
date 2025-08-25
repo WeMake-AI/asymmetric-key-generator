@@ -45,14 +45,20 @@ const config = {
 
     const dirname = __dirname
     const tempFile = path.join(dirname, 'app-store-connect-api-key')
-    fs.writeFileSync(tempFile, process.env.APP_STORE_CONNECT_API_KEY_CONTENT)
-
-    return await notarize({
-      appPath: `${appOutDir}/${appName}.app`,
-      appleApiKeyId: process.env.APP_STORE_CONNECT_API_KEY_ID,
-      appleApiKey: tempFile,
-      appleApiIssuer: process.env.APP_STORE_CONNECT_API_ISSUER_ID
-    })
+    // Write with restrictive permissions
+    fs.writeFileSync(tempFile, process.env.APP_STORE_CONNECT_API_KEY_CONTENT, { mode: 0o600 })
+    try {
+      return await notarize({
+        appPath: `${appOutDir}/${appName}.app`,
+        appleApiKeyId: process.env.APP_STORE_CONNECT_API_KEY_ID,
+        appleApiKey: tempFile,
+        appleApiIssuer: process.env.APP_STORE_CONNECT_API_ISSUER_ID
+      })
+    } finally {
+      try {
+        fs.unlinkSync(tempFile)
+      } catch {}
+    }
   }
 }
 

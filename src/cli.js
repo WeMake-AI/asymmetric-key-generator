@@ -23,7 +23,7 @@ program
     },
     1
   )
-  .option('-o, --output <filename>', 'Output filtpath')
+  .option('-o, --output <filename>', 'Output filepath')
   .option('-v, --private-key-out <filename>', 'Base name for output private key files')
 
 program.parse(process.argv)

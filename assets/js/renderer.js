@@ -8,8 +8,9 @@ function change_buttons_disabled_state(state) {
 }
 
 function remove_label_text(label_id) {
-  document.getElementById(label_id).innerText = 'ㅤ'
-  document.getElementById(label_id).classList = []
+  const el = document.getElementById(label_id)
+  el.innerText = 'ㅤ'
+  el.classList.remove('text-green-500', 'text-red-500')
 }
 
 function togglePassphrase() {
@@ -20,20 +21,20 @@ function togglePassphrase() {
 
 // Actions
 const generateKeys = async () => {
-  keyType = document.getElementById('select-keyType').value
-  let passphrase = document.getElementById('passphrase-input').value || undefined
-  let { privateKey, publicKey } = await window.utils.generateKeys(keyType, passphrase)
+  const keyType = document.getElementById('select-keyType').value
+  const passphrase = document.getElementById('passphrase-input').value || undefined
+  const { privateKey, publicKey } = await window.utils.generateKeys(keyType, passphrase)
   document.getElementById('private-key-text-area').value = privateKey
   document.getElementById('public-key-text-area').value = publicKey
 
-  //Enable buttons
+  // Enable buttons
   change_buttons_disabled_state(false)
 }
 
 const generatePublicKey = async () => {
-  privateKey = document.getElementById('private-key-text-area').value
-  let passphrase = document.getElementById('passphrase-input').value || undefined
-  let publicKey = await window.utils.generatePublicKey(privateKey, passphrase)
+  const privateKey = document.getElementById('private-key-text-area').value
+  const passphrase = document.getElementById('passphrase-input').value || undefined
+  const publicKey = await window.utils.generatePublicKey(privateKey, passphrase)
   document.getElementById('public-key-text-area').value = publicKey
 
   if (publicKey) {
@@ -58,13 +59,14 @@ const copyKey = async (input_key) => {
 }
 
 const saveKey = async (input_key) => {
-  let lower_input_key = input_key.toLowerCase()
-  let key = document.getElementById(`${lower_input_key}-key-text-area`).value
-  result = await window.utils.saveKey(`${input_key}_key`, key)
+  const lower_input_key = input_key.toLowerCase()
+  const key = document.getElementById(`${lower_input_key}-key-text-area`).value
+  let result = await window.utils.saveKey(`${input_key}_key`, key)
 
-  let label_id = `${lower_input_key}-key-text-area-tooltip`
+  const label_id = `${lower_input_key}-key-text-area-tooltip`
   // Display error tooltip for 5s
-  if (result.startsWith('Error')) {
+  let tip_color
+  if (result && result.startsWith('Error')) {
     tip_color = 'text-red-500'
   } else if (result) {
     tip_color = 'text-green-500'
