@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.1.4
+
+- Update devDependencies and dependencies to their latest versions.
+
 ## v1.1.3
 
 - Refactor code formatting to use consistent indentation, quote styles, and line breaks.
