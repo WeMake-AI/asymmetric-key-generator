@@ -1,9 +1,10 @@
 # CHANGELOG
 
-## v1.1.0
+## v1.1.3
 
 - Refactor code formatting to use consistent indentation, quote styles, and line breaks.
 - Remove unused imports and improve code readability while maintaining functionality.
+- Notarize app for macOS
 
 ## v1.0.0
 
