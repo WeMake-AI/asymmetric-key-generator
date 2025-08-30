@@ -27,7 +27,7 @@
   "repository": "https://github.com/WeMake-AI/asymmetric-key-generator",
   "license": "MIT",
   "devDependencies": {
-    "@electron/notarize": "^2.5.0",
+    "@electron/notarize": "^3.0.2",
     "electron": ">=28.3.2",
     "electron-builder": "^24.13.3",
     "eslint": "^8.57.1",
