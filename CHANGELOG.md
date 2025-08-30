@@ -2,7 +2,20 @@
 
 ## v1.1.4
 
-- Update devDependencies and dependencies to their latest versions.
+### Dependencies
+
+- Update devDependencies and dependencies to latest.
+  - Build: electron-builder v26, @electron/notarize v3
+  - Lint: ESLint v9 (+ plugins)
+  - Runtime: electron-util v0.18
+
+### Notes
+
+- CI/tooling may require Node ≥ 18.18 (ESLint 9) and updated Apple notarization config (electron-builder 26/@electron/notarize 3).
+- If you still use .eslintrc, migrate to flat config (eslint.config.js).
+  - electron-builder 26 (major)
+  - @electron/notarize 3 (major)
+  - electron-util 0.18 (runtime)
 
 ## v1.1.3
 
