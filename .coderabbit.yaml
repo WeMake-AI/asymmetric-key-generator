@@ -108,7 +108,7 @@ reviews:
     hadolint:
       enabled: false
     swiftlint:
-      enabled: true
+      enabled: false
     phpstan:
       enabled: false
       level: default
@@ -187,6 +187,7 @@ knowledge_base:
     filePatterns:
       - '**/.trae/rules/project_rules.md'
       - '**/docs/*'
+      - 'README.md'
   learnings:
     scope: global
   issues:

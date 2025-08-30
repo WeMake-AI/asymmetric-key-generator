@@ -6,15 +6,19 @@ There's two methods to run the tool, you can either download or build from sourc
 
 ## Download
 
-Prebuild apps can be found in [Releases](https://github.com/WeMake-AI/asymmetric-key-generator/releases).
+Prebuilt apps can be found in [Releases](https://github.com/WeMake-AI/asymmetric-key-generator/releases).
 
-To verify the package's integrity, run sha256 checksum:
+To verify the package's integrity:
 
 ```sh
-sha256sum -c AsymmetricKeyGenerator-1.1.3-universal.dmg.CHECKSUM
+# Option A: Using provided CHECKSUM file
+sha256sum -c AsymmetricKeyGenerator-<VERSION>-universal.dmg.CHECKSUM
+
+# Option B: Direct hash (compare with value in Releases)
+sha256sum AsymmetricKeyGenerator-<VERSION>-universal.dmg
 ```
 
-If it passes the integrity check, it'll return `AsymmetricKeyGenerator-1.1.3-universal.dmg: OK`
+If it passes, you'll see: `AsymmetricKeyGenerator-<VERSION>-universal.dmg: OK`.
 
 ## Build from source code
 
@@ -74,7 +78,7 @@ bun run generate -- -k <key-type> -p <passphrase> -n <number-of-keys> -o <output
 2. Generate 2 Ed25519 key pairs with passphrase:
 
    ```sh
-   bun run generate -- -k ed25519 -p mySecretPassphrase -n 2
+   bun run generate -- -k ed25519 -p mySecretPassphrase -n 2 -o id_ed25519.tar.gz
    ```
 
 This will generate:
